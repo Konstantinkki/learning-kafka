@@ -1,0 +1,53 @@
+1. install kafka for linux or windows WSL2 :
+	update file ~/.profile add : export PATH="$PATH:/home/kos/kafka_2.13-3.4.0/bin"
+	update file ~/.bashrc  add to the end :  . ~/.profile 
+
+	download from https://kafka.apache.org/downloads latest Binary downloads: to ~ dir
+	untar to  kafka_2.12-3.4.0
+	create folder data in the  kafka_2.12-3.4.0
+	create folders data/zookeeper and data/kafka
+	update file config/zookeeper.properties set dataDir=/home/kos/kafka_2.13-3.4.0/data/zookeeper
+	update file config/server.properties set  log.dirs=/home/kos/kafka_2.13-3.4.0/data/kafka
+
+2. run zookeeper : cd ~/kafka_2.12-3.4.0
+		   zookeeper-server-start.sh config/zookeeper.properties
+3. run kafka : kafka-server-start.sh config/server.properties 
+
+
+//------------create, delete, describe topic ------------------ 
+
+kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --topic first_topic --create --partitions 3 --replication-factor 1  (create topic)
+kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --list (list of topics)
+kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --topic first_topic --describe (topics description partitions) 
+
+kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --topic second_topic --create --partitions 6 --replication-factor 1  (create one more topic) 
+kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --topic second_topic --delete
+
+
+//-----------Send message into topic-----------
+
+kafka-console-producer.sh --broker-list 127.0.0.1:9092 --topic first_topic
+kafka-console-producer.sh --broker-list 127.0.0.1:9092 --topic first_topic --producer-property acks=all
+>enter messages
+
+
+//----------consume messages -------------------
+kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic first_topic
+kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic first_topic --from-beginning
+
+
+//---------consumers in groups --------------
+
+kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic first_topic --group my-first-application  (messages will be balanced between all live consumers in group 'my-first-application' )
+
+
+//---------consumer groups -----------------
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group my-second-group
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group --my-first-group --reset-offsets --to-earliest --execute  --topic my_first_topic
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group --my-first-group --reset-offsets --shift-by -2 --execute  --topic my_first_topic
+
+
+
+
+
