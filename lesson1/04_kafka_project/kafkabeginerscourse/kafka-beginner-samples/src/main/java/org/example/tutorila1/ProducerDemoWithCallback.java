@@ -9,7 +9,6 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.event.EventRecodingLogger;
 
 public class ProducerDemoWithCallback {
   public static void main(String[] args) {
