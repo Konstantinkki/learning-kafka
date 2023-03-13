@@ -9,8 +9,10 @@
     <version>1.0</version>
     <packaging>pom</packaging>
     <modules>
-        <module>kafkaconsumerelasticsearch</module>
+        <module>kafka-consumer-elasticsearch</module>
         <module>kafka-beginner-samples</module>
+        <module>kafka-connect</module>
+        <module>kafka-streams-filter-tweets</module>
     </modules>
 
     <properties>
