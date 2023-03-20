@@ -1,1 +1,42 @@
-1
+1 create kafka topics                                                                                                                           
+kafka-topics.bat --bootstrap-server 127.0.0.1:9092 --create --topic streaming.orders.input --partitions 1 --replication-factor 1                     
+kafka-topics.bat --bootstrap-server 127.0.0.1:9092 --create --topic streaming.alerts.input --partitions 1 --replication-factor 1                     
+kafka-topics.bat --bootstrap-server 127.0.0.1:9092 --create --topic streaming.alerts.critical --partitions 1 --replication-factor 1              
+kafka-topics.bat --bootstrap-server 127.0.0.1:9092 --create --topic treaming.alerts.highvolume --partitions 1 --replication-factor 1               
+kafka-topics.bat --bootstrap-server 127.0.0.1:9092 --create --topic streaming.leaderboards.input --partitions 1 --replication-factor 1              
+kafka-topics.bat --bootstrap-server 127.0.0.1:9092 --create --topic streaming.sentiment.input --partitions 1 --replication-factor 1                 
+kafka-topics.bat --bootstrap-server 127.0.0.1:9092 --create --topic streaming.sentiment.output --partitions 1 --replication-factor 1                 
+kafka-topics.bat --bootstrap-server 127.0.0.1:9092 --create --topic streaming.views.input --partitions 1 --replication-factor 1                          
+
+
+2 run mariadb in docker
+docker run \
+--name streaming-mariadb \
+-v 'C:\DEVELOPMENT\My_PROJECTS\learning-kafka\lesson2_patterns_kafka\mariadb':/var/lib/mysql \
+-e MYSQL_ROOT_PASSWORD=streaming \
+-e MYSQL_USER=streaming \
+-e MYSQL_PASSWORD=streaming \
+-p 3306:3306 \
+-d mariadb
+
+3 login into mysql client and create database
+
+docker exec -it streaming-mariadb mysql -u root -pstreaming
+CREATE DATABASE streaming;
+
+USE streaming;
+
+grant all on streaming to 'streaming'@'%';
+
+CREATE TABLE `order_summary` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `INTERVAL_TIMESTAMP` varchar(45) DEFAULT NULL,
+  `PRODUCT` varchar(45) DEFAULT NULL,
+  `TOTAL_VALUE` double DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+grant all on streaming.order_summary to 'streaming'@'%';
+
+4 run redis in docker 
+docker run --name streaming-redis -p 6379:6379 -d redis
