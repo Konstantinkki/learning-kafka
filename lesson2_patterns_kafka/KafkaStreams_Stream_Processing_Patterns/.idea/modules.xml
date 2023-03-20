@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/KafkaStreams_Stream_Processing_Patterns.iml" filepath="$PROJECT_DIR$/.idea/KafkaStreams_Stream_Processing_Patterns.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise Files/KafkaStreamsStreamingPatterns/kafkastreams-streaming-patterns.iml" filepath="$PROJECT_DIR$/Exercise Files/KafkaStreamsStreamingPatterns/kafkastreams-streaming-patterns.iml" />
+    </modules>
+  </component>
+</project>
